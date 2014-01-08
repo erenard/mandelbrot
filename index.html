@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Mandelbrot</title>
 		<style type="text/css">
 			div.colorPalette {width: 256px; height: 16px; cursor: pointer;}
 		</style>
@@ -18,14 +19,14 @@
 					<p>Drag and drop to navigate, use the mouse wheel to zoom in and out !</p>
 					<p>Click to change the color palette:</p>
 					<div id="selectionPalette" style="position: absolute; display: none;">
-						<div class="colorPalette" id="paletteBlueYellow" style="background-image: url('/public/html5/mandelbrot/paletteBlueYellow.png');"></div>
-						<div class="colorPalette" id="paletteFrequency" style="background-image: url('/public/html5/mandelbrot/paletteFrequency.png');"></div>
-						<div class="colorPalette" id="paletteHue" style="background-image: url('/public/html5/mandelbrot/paletteHue.png');"></div>
-						<div class="colorPalette" id="paletteRedGreen" style="background-image: url('/public/html5/mandelbrot/paletteRedGreen.png');"></div>
-						<div class="colorPalette" id="paletteRedYellow" style="background-image: url('/public/html5/mandelbrot/paletteRedYellow.png');"></div>
-						<div class="colorPalette" id="paletteWavelength" style="background-image: url('/public/html5/mandelbrot/paletteWavelength.png');"></div>
+						<div class="colorPalette" id="paletteBlueYellow" style="background-image: url('paletteBlueYellow.png');"></div>
+						<div class="colorPalette" id="paletteFrequency" style="background-image: url('paletteFrequency.png');"></div>
+						<div class="colorPalette" id="paletteHue" style="background-image: url('paletteHue.png');"></div>
+						<div class="colorPalette" id="paletteRedGreen" style="background-image: url('paletteRedGreen.png');"></div>
+						<div class="colorPalette" id="paletteRedYellow" style="background-image: url('paletteRedYellow.png');"></div>
+						<div class="colorPalette" id="paletteWavelength" style="background-image: url('paletteWavelength.png');"></div>
 					</div>
-					<div class="colorPalette" id="selectedPalette" style="background-image: url('/public/html5/mandelbrot/paletteRedYellow.png');"></div>
+					<div class="colorPalette" id="selectedPalette" style="background-image: url('paletteRedYellow.png');"></div>
 				</td>
 				<td>
 					<canvas id="mycanvas" width="576" height="432" style="display: inline-block; cursor: move;"></canvas>
