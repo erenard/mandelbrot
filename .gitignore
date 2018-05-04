@@ -1,1 +1,6 @@
-/nbproject
+/node_modules
+/dist
+/.tmp
+/.nyc_output
+/coverage
+.eslintcache
