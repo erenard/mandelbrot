@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
-  entry: { main: './src' },
+  entry: { main: './src/main' },
   output: {
     filename: '[name].bundle.js',
     path: path.join(__dirname, 'dist')
@@ -11,8 +11,7 @@ const config = {
     modules: [
       'src',
       'node_modules'
-    ],
-    alias: { vue: 'vue/dist/vue.js' }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './src/index.html' })
@@ -25,12 +24,24 @@ const config = {
         use: 'babel-loader'
       },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-      // { test: /\.png$/, use: 'url-loader?limit=100000' },
-      // { test: /\.jpg$/, use: 'file-loader' },
+      {
+        test: /\.(png|jpg)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 15000,
+            name: '[name].[ext]'
+          }
+        }
+      },
+      {
+        test: /\.glsl$/,
+        use: 'raw-loader'
+      },
       { test: /\.ttf$/, use: 'file-loader' }
     ]
   },
-  devtool: 'eval-cheap-module-source-map',
+  devtool: 'source-map',
   devServer: {
     compress: false,
     port: 9000

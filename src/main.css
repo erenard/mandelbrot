@@ -1,0 +1,27 @@
+div.colorPalette {
+    width: 256px;
+    height: 16px;
+    cursor: pointer;
+}
+
+div#selectionPalette {
+    position: absolute;
+}
+div.colorPalette#paletteBlueYellow {
+    background-image: url('paletteBlueYellow.png');
+}
+div.colorPalette#paletteFrequency {
+    background-image: url('paletteFrequency.png');
+}
+div.colorPalette#paletteHue {
+    background-image: url('paletteHue.png');
+}
+div.colorPalette#paletteRedGreen {
+    background-image: url('paletteRedGreen.png');
+}
+div.colorPalette#paletteRedYellow {
+    background-image: url('paletteRedYellow.png');
+}
+div.colorPalette#paletteWavelength {
+    background-image: url('paletteWavelength.png');
+}
