@@ -1,3 +1,7 @@
+html, body {
+    background-color: dimgray;
+}
+
 div.colorPalette {
     width: 256px;
     height: 16px;

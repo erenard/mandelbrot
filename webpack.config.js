@@ -23,6 +23,10 @@ const config = {
         exclude: /(node_modules|bower_components)/,
         use: 'babel-loader'
       },
+      {
+        test: /\.glsl$/,
+        use: 'raw-loader'
+      },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
         test: /\.(png|jpg)$/,
@@ -33,10 +37,6 @@ const config = {
             name: '[name].[ext]'
           }
         }
-      },
-      {
-        test: /\.glsl$/,
-        use: 'raw-loader'
       },
       { test: /\.ttf$/, use: 'file-loader' }
     ]
