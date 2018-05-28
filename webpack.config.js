@@ -31,9 +31,8 @@ const config = {
       {
         test: /\.(png|jpg)$/,
         use: {
-          loader: 'url-loader',
+          loader: 'file-loader',
           options: {
-            limit: 15000,
             name: '[name].[ext]'
           }
         }

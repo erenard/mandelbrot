@@ -11,14 +11,10 @@ export default function (setup) {
   var selectionPaletteElement = document.getElementById('selectionPalette')
   var canvasElement = document.getElementById(setup.canvasId)
   var modelComponent = null
-  var childNodes
-  var childNode
-  var key
   const chooseColor = function (event) {
-    var backgroundImage = event.target.style.backgroundImage
-    var resourceName = event.target.getAttribute('id')
+    const resourceName = event.target.getAttribute('id')
     selectionPaletteElement.style.display = 'none'
-    selectedPaletteButton.style.backgroundImage = backgroundImage
+    selectedPaletteButton.style.backgroundImage = event.target.style.backgroundImage
     if (modelComponent !== null) {
       modelComponent.glColorPalette(resourceName)
     }
@@ -47,13 +43,11 @@ export default function (setup) {
       selectionPaletteElement.style.display = 'none'
     }
   })
-  childNodes = selectionPaletteElement.childNodes
-  for (key = 0; key < childNodes.length; key += 1) {
-    childNode = childNodes[key]
+  selectionPaletteElement.childNodes.forEach(childNode => {
     if (childNode.nodeType === 1 && childNode.className === 'colorPalette') {
       childNode.addEventListener('click', chooseColor)
     }
-  }
+  })
   // Increase/decrease maximum iteration event handlers
   increaseIterationButton.addEventListener('click', function () {
     if (modelComponent !== null) {
