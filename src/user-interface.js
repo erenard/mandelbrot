@@ -1,14 +1,16 @@
+
+const maxIterationElement = document.getElementById('maxIteration')
+const scaleElement = document.getElementById('scale')
+const increaseIterationButton = document.getElementById('increaseIteration')
+const decreaseIterationButton = document.getElementById('decreaseIteration')
+const selectedPaletteButton = document.getElementById('selectedPalette')
+const selectionPaletteElement = document.getElementById('selectionPalette')
+
 export default function (setup) {
-  var maxIterationElement = document.getElementById('maxIteration')
-  var scaleElement = document.getElementById('scale')
   var dragStart = {x: null, y: null}
   var dragOffset = {x: 0, y: 0}
   var translate = {x: 0, y: 0}
   var scale = 0.1
-  var increaseIterationButton = document.getElementById('increaseIteration')
-  var decreaseIterationButton = document.getElementById('decreaseIteration')
-  var selectedPaletteButton = document.getElementById('selectedPalette')
-  var selectionPaletteElement = document.getElementById('selectionPalette')
   var canvasElement = document.getElementById(setup.canvasId)
   var modelComponent = null
   const chooseColor = function (event) {

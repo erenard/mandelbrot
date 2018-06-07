@@ -1,21 +1,20 @@
+function initGraphicalLibrary (canvas) {
+  let gl
+  try {
+    gl = canvas.getContext('webgl')
+  } catch (ex) {}
+  if (gl === null) {
+    try {
+      gl = canvas.getContext('experimental-webgl')
+    } catch (ex) {}
+  }
+  return gl
+}
+
 export default function (setup) {
   const canvas = document.getElementById(setup.canvasId)
-  var gl // Graphical Library
-
-  if (canvas !== null) {
-    try {
-      gl = canvas.getContext('webgl')
-    } catch (ex) {}
-    if (gl === null) {
-      try {
-        gl = canvas.getContext('experimental-webgl')
-      } catch (ex) {}
-    }
-  }
-  if (gl === null) {
-    alert("Your browser doesn't support WebGL.")
-    return null
-  }
+  // Graphical Library
+  var gl = initGraphicalLibrary(canvas)
   // Vertex Shader
   const vs = gl.createShader(gl.VERTEX_SHADER)
   // Fragment Shader
@@ -42,6 +41,9 @@ export default function (setup) {
     canvas: {
       width: canvas.width,
       height: canvas.height
+    },
+    resizeViewport: function () {
+      gl.viewport(0, 0, canvas.width, canvas.height)
     },
     compileVertexShader: function (sourceCode) {
       gl.shaderSource(vs, sourceCode)
@@ -88,7 +90,6 @@ export default function (setup) {
     loadTexture2D: function (texture, imageBase64) {
       const image = new Image()
       image.src = imageBase64
-      console.log(image, imageBase64)
       gl.bindTexture(gl.TEXTURE_2D, texture)
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image)

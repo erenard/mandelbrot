@@ -1,3 +1,4 @@
+import 'normalize-css'
 import './main.css'
 import { default as Animation } from './animation'
 import { default as Mandelbrot } from './mandelbrot'
