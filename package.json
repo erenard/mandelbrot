@@ -7,7 +7,10 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development",
     "lint": "eslint . --cache --fix",
-    "clean": "del ./dist"
+    "clean": "del ./dist",
+    "preversion": "npm run lint",
+    "version": "npm run build && git add -A build",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -27,6 +30,7 @@
     "babel-core": "^6.24.0",
     "babel-loader": "^7",
     "babel-preset-env": "^1.2.1",
+    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28",
     "eslint": "^4",
     "eslint-config-standard": "^11.0.0",
