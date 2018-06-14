@@ -8,9 +8,7 @@
     "start": "webpack-dev-server --mode development",
     "lint": "eslint . --cache --fix",
     "clean": "del ./dist",
-    "preversion": "npm run lint",
-    "version": "npm run build && git add -A build",
-    "postversion": "git push && git push --tags"
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
