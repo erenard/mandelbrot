@@ -5,6 +5,10 @@
 version: 2
 jobs:
   build:
+    filters:
+      branches:
+        only:
+          - master
     working_directory: ~/erenard/mandelbrot
     parallelism: 1
     environment:
