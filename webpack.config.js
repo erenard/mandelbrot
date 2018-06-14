@@ -1,12 +1,11 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const outputDirectory = 'dist'
+
 const config = {
   entry: { main: './src/main' },
   output: {
     filename: '[name].[hash].js',
-    path: path.join(__dirname, outputDirectory)
+    path: path.join(__dirname, 'dist')
   },
   resolve: {
     modules: [
@@ -15,7 +14,6 @@ const config = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(outputDirectory),
     new HtmlWebpackPlugin({ template: './src/index.html' })
   ],
   module: {

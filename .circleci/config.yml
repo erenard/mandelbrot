@@ -35,10 +35,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       
       - run: npm run lint
+      - run: npm run clean
+      - run: npm run prepare
       - run: npm run build
-
-      # run tests!
-      - run: npm test
-
-      # push gh-pages
       - run: npm run deploy

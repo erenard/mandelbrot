@@ -7,8 +7,9 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development",
     "lint": "eslint . --cache --fix",
-    "clean": "del ./dist",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "clean": "rm -rf dist",
+    "prepare": "git clone https://github.com/erenard/mandelbrot.git --branch gh-pages dist",
+    "deploy": "cd dist && git add --all && git commit -m \"Release at $(date)\" && git push"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,6 @@
     "babel-core": "^6.24.0",
     "babel-loader": "^7",
     "babel-preset-env": "^1.2.1",
-    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28",
     "eslint": "^4",
     "eslint-config-standard": "^11.0.0",
