@@ -1,26 +1,26 @@
 import 'normalize-css'
-import './main.css'
-import { default as Animation } from './animation'
-import { default as Mandelbrot } from './mandelbrot'
-import { default as UserInterface } from './user-interface'
-import { default as WebGL } from './web-gl'
+import { default as resources } from './resources'
+import * as PIXI from 'pixi.js'
 
-/* global window, document, Float32Array */
-function init (setup) {
-  try {
-    const webGL = WebGL(setup)
-    const userInterface = UserInterface(setup)
-    const model = Mandelbrot(webGL, userInterface)
-    const animation = Animation(model.loop)
-    userInterface.registerModelComponent(model)
-    userInterface.choosePalette('paletteRedYellow')
-    animation.start()
-  } catch (exception) {
-    if (window.console) {
-      window.console.error(exception)
-    }
-    window.alert('Your browser doesn\'t support WebGL.')
-  }
-}
+var app = new PIXI.Application(800, 600, {backgroundColor: 0x1099bb})
+document.body.appendChild(app.view)
 
-init({canvasId: 'mycanvas'})
+// create a new Sprite from an image path
+var bunny = PIXI.Sprite.fromImage(resources.paletteHue)
+
+// center the sprite's anchor point
+bunny.anchor.set(0.5)
+
+// move the sprite to the center of the screen
+bunny.x = app.screen.width / 2
+bunny.y = app.screen.height / 2
+
+app.stage.addChild(bunny)
+
+// Listen for animate update
+app.ticker.add(function (delta) {
+  // just for fun, let's rotate mr rabbit a little
+  // delta is 1 if running at 100% performance
+  // creates frame-independent transformation
+  bunny.rotation += 0.1 * delta
+})
