@@ -8,10 +8,12 @@ import { default as WebGL } from './web-gl'
 /* global window, document, Float32Array */
 function init (setup) {
   try {
-    var userInterface = UserInterface(setup)
-    var webGL = WebGL(setup)
-    var model = Mandelbrot(webGL, userInterface)
-    var animation = Animation(model.loop)
+    const webGL = WebGL(setup)
+    const userInterface = UserInterface(setup)
+    const model = Mandelbrot(webGL, userInterface)
+    const animation = Animation(model.loop)
+    userInterface.registerModelComponent(model)
+    userInterface.choosePalette('paletteRedYellow')
     animation.start()
   } catch (exception) {
     if (window.console) {

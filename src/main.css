@@ -17,30 +17,30 @@ html, body {
     border: solid 1px white;
 }
 
-div.colorPalette {
+.colorPalette {
     width: 256px;
     height: 16px;
     cursor: pointer;
 }
 
-div#selectionPalette {
+#selectionPalette {
     position: absolute;
 }
-div.colorPalette#paletteBlueYellow {
+.colorPalette#paletteBlueYellow {
     background-image: url('paletteBlueYellow.png');
 }
-div.colorPalette#paletteFrequency {
+.colorPalette#paletteFrequency {
     background-image: url('paletteFrequency.png');
 }
-div.colorPalette#paletteHue {
+.colorPalette#paletteHue {
     background-image: url('paletteHue.png');
 }
-div.colorPalette#paletteRedGreen {
+.colorPalette#paletteRedGreen {
     background-image: url('paletteRedGreen.png');
 }
-div.colorPalette#paletteRedYellow {
+.colorPalette#paletteRedYellow {
     background-image: url('paletteRedYellow.png');
 }
-div.colorPalette#paletteWavelength {
+.colorPalette#paletteWavelength {
     background-image: url('paletteWavelength.png');
 }

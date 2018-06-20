@@ -1,3 +1,4 @@
+import resources from './resources'
 
 const maxIterationElement = document.getElementById('maxIteration')
 const scaleElement = document.getElementById('scale')
@@ -13,12 +14,12 @@ export default function (setup) {
   var scale = 0.1
   var canvasElement = document.getElementById(setup.canvasId)
   var modelComponent = null
-  const chooseColor = function (event) {
-    const resourceName = event.target.getAttribute('id')
-    selectionPaletteElement.style.display = 'none'
-    selectedPaletteButton.style.backgroundImage = event.target.style.backgroundImage
+  const choosePalette = resourceName => {
+    selectedPaletteButton.src = resources[resourceName]
     if (modelComponent !== null) {
       modelComponent.glColorPalette(resourceName)
+    } else {
+      console.error('no model component')
     }
   }
   const mouseWheelHandler = function (event) {
@@ -47,7 +48,11 @@ export default function (setup) {
   })
   selectionPaletteElement.childNodes.forEach(childNode => {
     if (childNode.nodeType === 1 && childNode.className === 'colorPalette') {
-      childNode.addEventListener('click', chooseColor)
+      childNode.addEventListener('click', event => {
+        const resourceName = event.target.getAttribute('id')
+        selectionPaletteElement.style.display = 'none'
+        choosePalette(resourceName)
+      })
     }
   })
   // Increase/decrease maximum iteration event handlers
@@ -100,6 +105,7 @@ export default function (setup) {
       maxIterationElement.innerHTML = Math.floor(maxIteration)
       scaleElement.innerHTML = scale >= 10 ? Math.floor(scale) : Math.round(scale * 100) / 100
     },
+    choosePalette: choosePalette,
     dragOffset: dragOffset,
     translate: translate
   }

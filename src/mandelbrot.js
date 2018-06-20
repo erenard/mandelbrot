@@ -71,7 +71,6 @@ export default function (webGL, userInterface) {
     maxIteration: webGL.getUniformLocation('maxIteration')
   }
   webGL.setAttribFloatArray('aVertexPosition', vertices, 2)
-  glColorPalette('paletteRedYellow')
   that = {
     loop: function () {
       var now = new Date()
@@ -100,6 +99,5 @@ export default function (webGL, userInterface) {
     },
     glColorPalette: glColorPalette
   }
-  userInterface.registerModelComponent(that)
   return that
 }
