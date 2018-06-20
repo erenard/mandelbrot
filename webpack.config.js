@@ -16,7 +16,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './src/index.html' }),
-    new CleanWebpackPlugin('dist', { exclude: ['.circleci', '.gitignore'] })
+    new CleanWebpackPlugin('dist', { exclude: ['.git', '.circleci', '.gitignore'] })
   ],
   module: {
     rules: [
