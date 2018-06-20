@@ -14,12 +14,12 @@
 		<canvas id="mycanvas" width="800" height="600" style="display: inline-block; cursor: move;"></canvas>
 	</div>
 	<div id="controls">
-		Iterations limit: <span id="maxIteration" style="font-weight: bold">64</span><br/>
-		<button class="btn btn-default" id="increaseIteration">Increase</button>
-		<button class="btn btn-default" id="decreaseIteration">decrease</button><br/>
+		Iterations limit:
+		<button id="decreaseIteration">-</button>
+		<span id="maxIteration" style="font-weight: bold">64</span>
+		<button id="increaseIteration">+</button>
+		<br/>
 		Actual zoom: <strong>x<span id="scale">1</span></strong><br/>
-		<p>Drag and drop to navigate, use the mouse wheel to zoom in and out !</p>
-		<p>Click to change the color palette:</p>
 		<div id="selectionPalette" style="display: none;">
 			<div class="colorPalette" id="paletteBlueYellow"></div>
 			<div class="colorPalette" id="paletteFrequency"></div>
@@ -28,7 +28,9 @@
 			<div class="colorPalette" id="paletteRedYellow"></div>
 			<div class="colorPalette" id="paletteWavelength"></div>
 		</div>
-		<div class="colorPalette" id="selectedPalette" style="background-image: url('paletteRedYellow.png');"></div>
+		<div class="colorPalette"
+			id="selectedPalette"
+			style="border: solid 2px white;"></div>
 	</div>
-<script type="text/javascript" src="vendor.ba93b2ebf222788ae536.js"></script><script type="text/javascript" src="main.ba93b2ebf222788ae536.js"></script></body>
+<script type="text/javascript" src="vendor.70faa1e138ac74a84203.js"></script><script type="text/javascript" src="main.70faa1e138ac74a84203.js"></script></body>
 </html>
