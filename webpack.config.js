@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const config = {
   entry: { main: './src/main' },
@@ -14,7 +15,8 @@ const config = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' })
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new CleanWebpackPlugin('dist', { exclude: ['.circleci', '.gitignore'] })
   ],
   module: {
     rules: [
