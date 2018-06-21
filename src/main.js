@@ -2,25 +2,36 @@ import 'normalize-css'
 import { default as resources } from './resources'
 import * as PIXI from 'pixi.js'
 
-var app = new PIXI.Application(800, 600, {backgroundColor: 0x1099bb})
+const app = new PIXI.Application(800, 600)
 document.body.appendChild(app.view)
 
-// create a new Sprite from an image path
-var bunny = PIXI.Sprite.fromImage(resources.paletteHue)
+const uniforms = {
+  colorPalette: null,
+  maxIteration: null
+}
+const filter = new PIXI.Filter(resources['mandelbrotVertex'], resources['mandelbrotFragment'], uniforms)
 
-// center the sprite's anchor point
-bunny.anchor.set(0.5)
+const square = new PIXI.mesh.Mesh(
+  PIXI.Texture.WHITE,
+  new Float32Array([
+    1, 1, // x, y
+    -1, 1, // x, y
+    1, -1, // x, y
+    -1, -1 // x, y
+  ]),
+  undefined,
+  new Uint16Array([
+    0, 1, 2,
+    1, 2, 3
+  ]),
+  PIXI.mesh.Mesh.DRAW_MODES.TRIANGLE_MESH
+)
 
-// move the sprite to the center of the screen
-bunny.x = app.screen.width / 2
-bunny.y = app.screen.height / 2
+square.position.set(app.screen.width / 2, app.screen.height / 2)
+square.scale.set(20)
 
-app.stage.addChild(bunny)
+app.stage.addChild(square)
 
-// Listen for animate update
 app.ticker.add(function (delta) {
-  // just for fun, let's rotate mr rabbit a little
-  // delta is 1 if running at 100% performance
-  // creates frame-independent transformation
-  bunny.rotation += 0.1 * delta
+  square.rotation += 0.01
 })
