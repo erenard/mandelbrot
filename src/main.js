@@ -6,8 +6,8 @@ const app = new PIXI.Application(800, 600)
 document.body.appendChild(app.view)
 
 const uniforms = {
-  colorPalette: null,
-  maxIteration: null
+  colorPalette: resources['paletteHue'],
+  maxIteration: 64
 }
 const filter = new PIXI.Filter(resources['mandelbrotVertex'], resources['mandelbrotFragment'], uniforms)
 
