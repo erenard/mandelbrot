@@ -6,9 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development",
-    "lint": "eslint . --cache --fix",
-    "prepare": "rm -rf dist && git clone https://github.com/erenard/mandelbrot.git --branch gh-pages dist",
-    "deploy": "cd dist && git add --all && git commit -m \"Release at $(date)\" && git push"
+    "lint": "eslint . --cache --fix"
   },
   "repository": {
     "type": "git",
@@ -26,27 +24,27 @@
   "homepage": "https://github.com/erenard/mandelbrot#readme",
   "devDependencies": {
     "babel-core": "^6.24.0",
-    "babel-loader": "^7",
+    "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.2.1",
     "clean-webpack-plugin": "^0.1.19",
-    "css-loader": "^0.28",
-    "eslint": "^4",
+    "css-loader": "^1",
+    "eslint": "^5",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsdoc": "^3.0.2",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsdoc": "^3.7.1",
+    "eslint-plugin-node": "^7",
+    "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.0.1",
     "file-loader": "^1",
     "html-webpack-plugin": "^3.0.6",
     "json-loader": "^0.5.4",
     "raw-loader": "^0.5.1",
-    "style-loader": "^0.20.3",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.11",
-    "webpack-dev-middleware": "^3.0.1",
-    "webpack-dev-server": "^3.1.1",
-    "webpack-node-externals": "^1.5.4"
+    "style-loader": "^0.21",
+    "webpack": "^4",
+    "webpack-cli": "^3",
+    "webpack-dev-middleware": "^3",
+    "webpack-dev-server": "^3",
+    "webpack-node-externals": "^1"
   },
   "dependencies": {
     "normalize-css": "^2.3.1",
