@@ -1,34 +1,69 @@
 import 'normalize-css'
-import { default as resources } from './resources'
+import { default as Resources } from './resources'
 import * as PIXI from 'pixi.js'
 
-const app = new PIXI.Application(800, 600)
+const app = new PIXI.Application(640, 480)
 document.body.appendChild(app.view)
 
-const uniforms = {
-  colorPalette: resources['paletteHue'],
-  maxIteration: 64
-}
-const filter = new PIXI.Filter(resources['mandelbrotVertex'], resources['mandelbrotFragment'], uniforms)
+var geometry = new PIXI.Geometry()
+  .addAttribute('aVertexPosition', // the attribute name
+    [
+      -100, -100, // x, y
+      100, -100, // x, y
+      100, 100,
+      -100, 100 // x, y
+    ],
+    2) // the size of the attribute
+  .addAttribute('aUvs', // the attribute name
+    [
+      0, 0, // u, v
+      1, 0, // u, v
+      1, 1,
+      0, 1
+    ], // u, v
+    2) // the size of the attribute
+  .addIndex([0, 1, 2, 0, 2, 3])
+  .interleave()
 
-const square = new PIXI.mesh.Mesh(
-  PIXI.Texture.WHITE,
-  new Float32Array([
-    1, 1, // x, y
-    -1, 1, // x, y
-    1, -1, // x, y
-    -1, -1 // x, y
-  ]),
-  undefined,
-  new Uint16Array([
-    0, 1, 2,
-    1, 2, 3
-  ]),
-  PIXI.mesh.Mesh.DRAW_MODES.TRIANGLE_MESH
-)
+var shader = PIXI.Shader.from(`
+
+    precision mediump float;
+
+    attribute vec2 aVertexPosition;
+    attribute vec2 aUvs;
+
+    uniform mat3 translationMatrix;
+    uniform mat3 projectionMatrix;
+
+    varying vec2 vUvs;
+
+    void main() {
+
+        vUvs = aUvs;
+        gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);
+
+    }`,
+
+`precision mediump float;
+
+    varying vec2 vUvs;
+
+    uniform sampler2D uSampler2;
+
+    void main() {
+
+        gl_FragColor = texture2D(uSampler2, vUvs );
+    }
+
+`,
+{
+  uSampler2: PIXI.Texture.from(Resources['paletteHue'])
+})
+
+const square = new PIXI.Mesh(geometry, shader)
 
 square.position.set(app.screen.width / 2, app.screen.height / 2)
-square.scale.set(20)
+square.scale.set(2)
 
 app.stage.addChild(square)
 
