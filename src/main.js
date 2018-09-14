@@ -5,7 +5,9 @@ import * as PIXI from 'pixi.js'
 const app = new PIXI.Application(640, 480)
 document.body.appendChild(app.view)
 
-var geometry = new PIXI.Geometry()
+const texture = PIXI.Texture.from(Resources['paletteHue'])
+
+const geometry = new PIXI.Geometry()
   .addAttribute('aVertexPosition', // the attribute name
     [
       -100, -100, // x, y
@@ -16,49 +18,59 @@ var geometry = new PIXI.Geometry()
     2) // the size of the attribute
   .addAttribute('aUvs', // the attribute name
     [
-      0, 0, // u, v
-      1, 0, // u, v
-      1, 1,
-      0, 1
-    ], // u, v
+      -2, -2,
+      2, -2,
+      2, 2,
+      -2, 2
+    ],
     2) // the size of the attribute
   .addIndex([0, 1, 2, 0, 2, 3])
   .interleave()
 
-var shader = PIXI.Shader.from(`
+const shader = PIXI.Shader.from(
+  `
+  precision mediump float;
 
-    precision mediump float;
+  attribute vec2 aVertexPosition;
+  attribute vec2 aUvs;
 
-    attribute vec2 aVertexPosition;
-    attribute vec2 aUvs;
+  uniform mat3 translationMatrix;
+  uniform mat3 projectionMatrix;
 
-    uniform mat3 translationMatrix;
-    uniform mat3 projectionMatrix;
+  varying vec2 v_TextureCoord;
 
-    varying vec2 vUvs;
+  void main() {
+    v_TextureCoord = aUvs;
+    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);
+  }
+  `,
+  `
+  uniform int maxIteration;
+  uniform sampler2D colorPalette;
 
-    void main() {
+  varying vec2 v_TextureCoord;
 
-        vUvs = aUvs;
-        gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);
+  const int loopLimit = 1024;
 
-    }`,
-
-`precision mediump float;
-
-    varying vec2 vUvs;
-
-    uniform sampler2D uSampler2;
-
-    void main() {
-
-        gl_FragColor = texture2D(uSampler2, vUvs );
+  void main() {
+    vec2 c = v_TextureCoord;
+    vec2 z = v_TextureCoord;
+    int iteration = 0;
+    for(int i = 0; i < loopLimit; i++) {
+      float x = (z.x * z.x - z.y * z.y) + c.x;
+      float y = (z.y * z.x + z.x * z.y) + c.y;
+      if((x * x + y * y) > 4.0 || iteration == maxIteration) break;
+      z.x = x;
+      z.y = y;
+      iteration++;
     }
-
-`,
-{
-  uSampler2: PIXI.Texture.from(Resources['paletteHue'])
-})
+    gl_FragColor = (iteration == maxIteration ? vec4(0.0, 0.0, 0.0, 1.0) : texture2D(colorPalette, vec2(float(iteration)) / float(maxIteration), 0.0));
+  }
+  `,
+  {
+    colorPalette: texture,
+    maxIteration: 64
+  })
 
 const square = new PIXI.Mesh(geometry, shader)
 
@@ -67,6 +79,8 @@ square.scale.set(2)
 
 app.stage.addChild(square)
 
+/*
 app.ticker.add(function (delta) {
   square.rotation += 0.01
 })
+*/
