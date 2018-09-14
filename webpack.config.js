@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-const config = {
+module.exports = (env, argv) => ({
   entry: { main: './src/main' },
   output: {
     filename: '[name].[hash].js',
@@ -48,7 +48,7 @@ const config = {
     port: 9000
   },
   optimization: {
-    minimize: true,
+    minimize: argv.mode === 'production',
     runtimeChunk: {
       name: 'vendor'
     },
@@ -64,6 +64,4 @@ const config = {
       }
     }
   }
-}
-
-module.exports = config
+})
