@@ -1,22 +1,28 @@
-
-import { default as paletteBlueYellow } from './paletteBlueYellow.png'
-import { default as paletteFrequency } from './paletteFrequency.png'
-import { default as paletteHue } from './paletteHue.png'
-import { default as paletteRedGreen } from './paletteRedGreen.png'
-import { default as paletteRedYellow } from './paletteRedYellow.png'
-import { default as paletteWavelength } from './paletteWavelength.png'
-import { default as mandelbrotVertex } from './mandelbrotVertex.glsl'
-import { default as mandelbrotFragment } from './mandelbrotFragment.glsl'
+import paletteBlueYellow from './paletteBlueYellow.png'
+import paletteFrequency from './paletteFrequency.png'
+import paletteHue from './paletteHue.png'
+import paletteRedGreen from './paletteRedGreen.png'
+import paletteRedYellow from './paletteRedYellow.png'
+import paletteWavelength from './paletteWavelength.png'
+import mandelbrotVertex from './mandelbrotVertex.glsl'
+import mandelbrotFragment from './mandelbrotFragment.glsl'
 
 const datas = {
-  'paletteBlueYellow': paletteBlueYellow,
-  'paletteFrequency': paletteFrequency,
-  'paletteHue': paletteHue,
-  'paletteRedGreen': paletteRedGreen,
-  'paletteRedYellow': paletteRedYellow,
-  'paletteWavelength': paletteWavelength,
-  'mandelbrotVertex': mandelbrotVertex,
-  'mandelbrotFragment': mandelbrotFragment
+  paletteBlueYellow,
+  paletteFrequency,
+  paletteHue,
+  paletteRedGreen,
+  paletteRedYellow,
+  paletteWavelength,
+  mandelbrotVertex,
+  mandelbrotFragment,
+  addTexturesToLoader: loader => {
+    Object.entries(datas).forEach(entry => {
+      if (typeof entry[1] !== 'function') {
+        loader.add(entry[0], entry[1])
+      }
+    })
+  }
 }
 
 export default datas
