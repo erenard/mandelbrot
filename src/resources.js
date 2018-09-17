@@ -8,19 +8,21 @@ import mandelbrotVertex from './mandelbrotVertex.glsl'
 import mandelbrotFragment from './mandelbrotFragment.glsl'
 
 const datas = {
-  paletteBlueYellow,
-  paletteFrequency,
-  paletteHue,
-  paletteRedGreen,
-  paletteRedYellow,
-  paletteWavelength,
-  mandelbrotVertex,
-  mandelbrotFragment,
-  addTexturesToLoader: loader => {
-    Object.entries(datas).forEach(entry => {
-      if (typeof entry[1] !== 'function') {
-        loader.add(entry[0], entry[1])
-      }
+  palettes: {
+    paletteBlueYellow,
+    paletteFrequency,
+    paletteHue,
+    paletteRedGreen,
+    paletteRedYellow,
+    paletteWavelength
+  },
+  shaders: {
+    mandelbrotVertex,
+    mandelbrotFragment
+  },
+  addResourcesToLoader: loader => {
+    Object.entries(datas.palettes).forEach(entry => {
+      loader.add(entry[0], entry[1])
     })
   }
 }
