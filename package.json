@@ -28,10 +28,10 @@
     "babel-preset-env": "^1.2.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1",
-    "eslint": "^5",
+    "eslint": "^5.6.0",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsdoc": "^3.7.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsdoc": "^3.8.0",
     "eslint-plugin-node": "^7",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.0.1",
@@ -40,14 +40,15 @@
     "json-loader": "^0.5.4",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.21",
-    "webpack": "^4",
+    "webpack": "^4.19.0",
     "webpack-cli": "^3",
-    "webpack-dev-middleware": "^3",
-    "webpack-dev-server": "^3",
+    "webpack-dev-middleware": "^3.3.0",
+    "webpack-dev-server": "^3.1.8",
     "webpack-node-externals": "^1"
   },
   "dependencies": {
     "normalize-css": "^2.3.1",
+    "pixi-viewport": "^3.7.0",
     "pixi.js": "5.0.0-alpha.3"
   },
   "nyc": {
