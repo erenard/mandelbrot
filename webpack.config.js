@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = (env, argv) => {
   const config = {
@@ -13,10 +14,14 @@ module.exports = (env, argv) => {
       modules: [
         'src',
         'node_modules'
-      ]
+      ],
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js'
+      }
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './src/index.html' }),
+      new VueLoaderPlugin(),
       new CleanWebpackPlugin('dist', { exclude: ['.git', '.circleci', '.gitignore'] })
     ],
     module: {
@@ -40,7 +45,11 @@ module.exports = (env, argv) => {
             }
           }
         },
-        { test: /\.ttf$/, use: 'file-loader' }
+        { test: /\.ttf$/, use: 'file-loader' },
+        {
+          test: /\.vue$/,
+          use: 'vue-loader'
+        }
       ]
     },
     devtool: 'source-map',
