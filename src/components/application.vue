@@ -1,47 +1,39 @@
 <template>
     <div>
-        <viewport />
-        <controls />
+        <viewport
+            :max-iterations="maxIterations"
+            :color-palette="colorPalette" />
+        <controls
+            :max-iterations="maxIterations"
+            @maxIterations="handleMaxIterations"
+            :color-palette="colorPalette"
+            @colorPalette="handleColorPalette" />
     </div>
 </template>
 
 <script>
 import ControlsVue from './controls.vue'
-import ViewportVue from "./viewport.vue";
-
-import * as PIXI from 'pixi.js'
-import Viewport from 'pixi-viewport'
-
-import { application, initializeApplication } from '../application'
-import mandelbrot from '../mandelbrot'
-
-const viewportSideDimension = 500
+import ViewportVue from './viewport.vue'
+import Resources from '../resources'
 
 export default {
+    data() {
+        return {
+            maxIterations: 64,
+            colorPalette: 'paletteHue'
+        }
+    },
     components: {
         viewport: ViewportVue,
         controls: ControlsVue
     },
-    mounted() {
-        initializeApplication(viewportSideDimension).then(app => {
-        const viewport = new Viewport({
-            screenWidth: app.screen.width,
-            screenHeight: app.screen.height,
-            worldWidth: viewportSideDimension,
-            worldHeight: viewportSideDimension
-        })
-        viewport.drag().pinch()
-            .wheel()
-            .decelerate()
-
-        app.stage.addChild(viewport)
-
-        const geometry = mandelbrot.geometry(0, viewportSideDimension)
-        const texture = PIXI.Texture.from(app.loader.resources.paletteHue.data)
-        const shader = mandelbrot.shader(texture)
-        const square = new PIXI.Mesh(geometry, shader)
-        viewport.addChild(square)
-        })
+    methods: {
+        handleMaxIterations(value) {
+            this.maxIterations = value
+        },
+        handleColorPalette(value) {
+            this.colorPalette = value
+        }
     }
 }
 </script>
