@@ -2,13 +2,14 @@
     <div id="controls">
 		Iterations limit:
 		<button @click="decreaseIteration">-</button>
-		<span id="maxIteration" style="font-weight: bold">{{ maxIterations }}</span>
+		<span id="maxIteration" style="font-weight: bold">{{ maxIteration }}</span>
 		<button @click="increaseIteration">+</button>
 		<br/>
 		Actual zoom: <strong>x<span id="scale">1</span></strong><br/>
 		<img class="colorPalette"
 			ref="selectedColorPalette"
 			@click="openSelectionPalette"
+			:src="colorPalette[1]"
 			style="border: solid 2px white;" />
 		<div ref="selectionPalette" style="display: none;">
 			<img class="colorPalette"
@@ -25,13 +26,13 @@ import Resources from '../resources'
 
 export default {
 	props: {
-		maxIterations: {
+		maxIteration: {
 			type: Number,
 			default: 1
 		},
 		colorPalette: {
-			type: String,
-			default: ''
+			type: Array,
+			default: Resources.defaultPalette
 		}
 	},
 	computed: {
@@ -39,22 +40,18 @@ export default {
 	},
 	methods: {
 		decreaseIteration() {
-			this.$emit('maxIterations', this.maxIterations / 2)
+			this.$emit('decreaseIteration')
 		},
 		increaseIteration() {
-			this.$emit('maxIterations', this.maxIterations * 2)
+			this.$emit('increaseIteration')
 		},
 		openSelectionPalette() {
 			this.$refs.selectionPalette.style.display = ''
 		},
 		selectColorPalette(selectedColorPalette) {
 			this.$refs.selectionPalette.style.display = 'none'
-			this.$refs.selectedColorPalette.src = '/' + selectedColorPalette[1]
-			this.$emit('colorPalette', selectedColorPalette[0])
+			this.$emit('colorPalette', selectedColorPalette)
 		}
-	},
-	mounted() {
-		this.$refs.selectedColorPalette.src = Resources.palettes[this.colorPalette]
 	}
 }
 </script>

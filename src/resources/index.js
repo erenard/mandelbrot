@@ -24,7 +24,8 @@ const datas = {
     Object.entries(datas.palettes).forEach(entry => {
       loader.add(entry[0], entry[1])
     })
-  }
+  },
+  defaultPalette: () => ['paletteHue', paletteHue]
 }
 
 export default datas

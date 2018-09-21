@@ -1,11 +1,12 @@
 <template>
     <div>
         <viewport
-            :max-iterations="maxIterations"
-            :color-palette="colorPalette" />
+            :max-iterations="maxIteration"
+            :color-palette="colorPalette[0]" />
         <controls
-            :max-iterations="maxIterations"
-            @maxIterations="handleMaxIterations"
+            :max-iteration="maxIteration"
+            @increaseIteration="handleIncreaseIteration"
+            @decreaseIteration="handleDecreaseIteration"
             :color-palette="colorPalette"
             @colorPalette="handleColorPalette" />
     </div>
@@ -19,8 +20,8 @@ import Resources from '../resources'
 export default {
     data() {
         return {
-            maxIterations: 64,
-            colorPalette: 'paletteHue'
+            maxIteration: 64,
+            colorPalette: Resources.defaultPalette()
         }
     },
     components: {
@@ -28,11 +29,18 @@ export default {
         controls: ControlsVue
     },
     methods: {
-        handleMaxIterations(value) {
-            this.maxIterations = value
+        handleIncreaseIteration(value) {
+			if(this.maxIteration < 1024) {
+                this.maxIteration *= 2
+			}
         },
-        handleColorPalette(value) {
-            this.colorPalette = value
+        handleDecreaseIteration(value) {
+			if(this.maxIteration > 1) {
+                this.maxIteration /= 2
+			}
+        },
+        handleColorPalette(selectedColorPalette) {
+			this.colorPalette = selectedColorPalette
         }
     }
 }

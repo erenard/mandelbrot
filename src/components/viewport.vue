@@ -8,6 +8,7 @@ import Viewport from 'pixi-viewport'
 
 import { application, initializeApplication } from '../application'
 import mandelbrot from '../mandelbrot'
+import Resources from '../resources'
 
 const viewportSideDimension = 500
 
@@ -25,7 +26,7 @@ export default {
 		},
 		colorPalette: {
 			type: String,
-			default: 'paletteBlueYellow'
+			default: Resources.defaultPalette()[0]
 		}
     },
     watch: {
