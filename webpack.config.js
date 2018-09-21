@@ -2,9 +2,10 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-module.exports = (env, argv) => {
-  const config = {
+module.exports = function (env, argv) {
+  return {
     entry: { main: './src/main' },
     output: {
       filename: '[name].[hash].js',
@@ -56,26 +57,12 @@ module.exports = (env, argv) => {
     devServer: {
       compress: false,
       port: 9000
-    }
-  }
-  if (argv.mode === 'production') {
-    config.optimization = {
+    },
+    optimization: {
       minimize: argv.mode === 'production',
-      runtimeChunk: {
-        name: 'vendor'
-      },
-      splitChunks: {
-        cacheGroups: {
-          default: false,
-          commons: {
-            test: /node_modules/,
-            name: 'vendor',
-            chunks: 'initial',
-            minSize: 1
-          }
-        }
-      }
+      minimizer: [new UglifyJsPlugin({
+        parallel: true
+      })]
     }
   }
-  return config
 }
