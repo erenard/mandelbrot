@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development",
-    "lint": "eslint . --cache --fix"
+    "lint": "eslint . --cache --fix",
+    "prepare": "git clone https://github.com/erenard/mandelbrot.git --branch gh-pages dist",
+    "deploy": "cd dist && git add --all && git commit -m \"Release at $(date)\" && git push"
   },
   "repository": {
     "type": "git",
