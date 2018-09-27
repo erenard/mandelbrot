@@ -20,35 +20,35 @@ import ViewportVue from './viewport.vue'
 import Resources from '../resources'
 
 export default {
-    data() {
-        return {
-            maxIteration: 64,
-            colorPalette: Resources.defaultPalette(),
-            zoom: 1
-        }
-    },
-    components: {
-        viewport: ViewportVue,
-        controls: ControlsVue
-    },
-    methods: {
-        handleIncreaseIteration(value) {
-			if(this.maxIteration < 1024) {
-                this.maxIteration *= 2
-			}
-        },
-        handleDecreaseIteration(value) {
-			if(this.maxIteration > 1) {
-                this.maxIteration /= 2
-			}
-        },
-        handleColorPalette(selectedColorPalette) {
-			this.colorPalette = selectedColorPalette
-        },
-        handleZoomed(value) {
-            this.zoom = value
-        }
+  data () {
+    return {
+      maxIteration: 64,
+      colorPalette: Resources.defaultPalette(),
+      zoom: 1
     }
+  },
+  components: {
+    viewport: ViewportVue,
+    controls: ControlsVue
+  },
+  methods: {
+    handleIncreaseIteration (value) {
+      if (this.maxIteration < 1024) {
+        this.maxIteration *= 2
+      }
+    },
+    handleDecreaseIteration (value) {
+      if (this.maxIteration > 1) {
+        this.maxIteration /= 2
+      }
+    },
+    handleColorPalette (selectedColorPalette) {
+      this.colorPalette = selectedColorPalette
+    },
+    handleZoomed (value) {
+      this.zoom = value
+    }
+  }
 }
 </script>
 

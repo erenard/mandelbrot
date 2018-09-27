@@ -5,8 +5,6 @@ import 'normalize-css'
 import Resources from './resources'
 import * as PIXI from 'pixi.js'
 
-let vueVM
-
 const application = new PIXI.Application({
   width: window.innerWidth,
   height: window.innerHeight,
@@ -17,7 +15,8 @@ const application = new PIXI.Application({
 Resources.addResourcesToLoader(application.loader)
 
 application.loader.load(() => {
-  vueVM = new Vue({
+  /* eslint-disable-next-line no-new */
+  new Vue({
     el: '#app',
     components: {
       'application': ApplicationComponent

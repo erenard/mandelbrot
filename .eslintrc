@@ -5,7 +5,10 @@
     "es6": true,
     "node": true
   },
-  "extends": "standard",
+  "extends": [
+    "standard",
+    "plugin:vue/essential"
+  ],
   "parserOptions": {
     "sourceType": "module"
   },
