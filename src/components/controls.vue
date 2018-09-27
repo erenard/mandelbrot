@@ -2,10 +2,10 @@
     <div id="controls">
 		Iterations limit:
 		<button @click="decreaseIteration">-</button>
-		<span id="maxIteration" style="font-weight: bold">{{ maxIteration }}</span>
+		<span style="font-weight: bold">{{ maxIteration }}</span>
 		<button @click="increaseIteration">+</button>
 		<br/>
-		Actual zoom: <strong>x<span id="scale">1</span></strong><br/>
+		Actual zoom: <strong>x<span>{{ zoom | precisionDigits }}</span></strong><br/>
 		<img class="colorPalette"
 			ref="selectedColorPalette"
 			@click="openSelectionPalette"
@@ -33,10 +33,19 @@ export default {
 		colorPalette: {
 			type: Array,
 			default: Resources.defaultPalette
+		},
+		zoom: {
+			type: Number,
+			default: 1
 		}
 	},
 	computed: {
 		palettes: () => Object.entries(Resources.palettes)
+	},
+	filters: {
+		precisionDigits(value) {
+			return Math.round(value * 1000) / 1000
+		}
 	},
 	methods: {
 		decreaseIteration() {

@@ -32,15 +32,19 @@ export default {
         colorPalette(value) {
             const texture = PIXI.Texture.from(application.loader.resources[value].data)
             shader.uniforms.colorPalette = texture
-        },
+        }
     },
     methods: {
+        handleZoomed() {
+            this.$emit('zoomed', viewport.screenWorldHeight / viewport.worldHeight)
+        },
         handleResize(event) {
             const center = viewport.center
             application.renderer.resize(window.innerWidth, window.innerHeight)
             viewport.screenWidth = application.screen.width
             viewport.screenHeight = application.screen.height
             viewport.center = center
+            this.handleZoomed()
             // viewport.fit(true, window.innerWidth, window.innerHeight)
             // You can use the 'screen' property as the renderer visible
             // area, this is more useful than view.width/height because
@@ -63,6 +67,8 @@ export default {
             .wheel()
             .decelerate()
 
+        viewport.on('zoomed', this.handleZoomed)
+ 
         application.stage.addChild(viewport)
 
         shader = Mandelbrot.shader(PIXI.Texture.from(application.loader.resources.paletteHue.data))
@@ -75,6 +81,8 @@ export default {
 
         viewport.center = new PIXI.Point(0, 0)
         viewport.fitWorld(true)
+
+        this.handleZoomed()
     }
 }
 </script>

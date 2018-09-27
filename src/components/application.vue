@@ -2,13 +2,15 @@
     <div>
         <viewport
             :max-iterations="maxIteration"
-            :color-palette="colorPalette[0]" />
+            :color-palette="colorPalette[0]"
+            @zoomed="handleZoomed"/>
         <controls
             :max-iteration="maxIteration"
             @increaseIteration="handleIncreaseIteration"
             @decreaseIteration="handleDecreaseIteration"
             :color-palette="colorPalette"
-            @colorPalette="handleColorPalette" />
+            @colorPalette="handleColorPalette"
+            :zoom="zoom" />
     </div>
 </template>
 
@@ -21,7 +23,8 @@ export default {
     data() {
         return {
             maxIteration: 64,
-            colorPalette: Resources.defaultPalette()
+            colorPalette: Resources.defaultPalette(),
+            zoom: 1
         }
     },
     components: {
@@ -41,6 +44,9 @@ export default {
         },
         handleColorPalette(selectedColorPalette) {
 			this.colorPalette = selectedColorPalette
+        },
+        handleZoomed(value) {
+            this.zoom = value
         }
     }
 }
@@ -50,8 +56,8 @@ export default {
 html, body {
     background-color: black;
     color: white;
-    margin:0;
-    padding:0;
-    overflow:hidden;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 </style>
