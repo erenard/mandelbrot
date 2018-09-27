@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "normalize-css": "^2.3.1",
-    "pixi-viewport": "^3.7.0",
+    "pixi-viewport": "^3.7.5",
     "pixi.js": "5.0.0-alpha.3",
     "tiny-debounce": "^0.1.1",
     "vue": "^2.5.17"
