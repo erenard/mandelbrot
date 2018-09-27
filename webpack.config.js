@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = function (env, argv) {
   return {
-    entry: { main: './src/main' },
+    entry: { application: './src/application' },
     output: {
       filename: '[name].[hash].js',
       path: path.join(__dirname, 'dist')

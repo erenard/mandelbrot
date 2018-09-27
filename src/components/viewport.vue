@@ -5,20 +5,16 @@
 <script>
 import * as PIXI from 'pixi.js'
 import Viewport from 'pixi-viewport'
+import debounce from 'tiny-debounce'
 
-import { application, initializeApplication } from '../application'
-import mandelbrot from '../mandelbrot'
+import application from '../application'
+import Mandelbrot from '../mandelbrot'
 import Resources from '../resources'
 
-const viewportSideDimension = 500
+const worldSide = 500
+var shader, viewport
 
 export default {
-    data() {
-        return {
-            app: {},
-            shader: {}
-        }
-    },
 	props: {
 		maxIterations: {
 			type: Number,
@@ -31,40 +27,64 @@ export default {
     },
     watch: {
         maxIterations(value) {
-            this.shader.uniforms.maxIteration = value
+            shader.uniforms.maxIteration = value
         },
         colorPalette(value) {
-            const texture = PIXI.Texture.from(this.app.loader.resources[value].data)
-            this.shader.uniforms.colorPalette = texture
+            const texture = PIXI.Texture.from(application.loader.resources[value].data)
+            shader.uniforms.colorPalette = texture
         },
     },
+    methods: {
+        handleResize(event) {
+            const center = viewport.center
+            application.renderer.resize(window.innerWidth, window.innerHeight)
+            viewport.screenWidth = application.screen.width
+            viewport.screenHeight = application.screen.height
+            viewport.center = center
+            // viewport.fit(true, window.innerWidth, window.innerHeight)
+            // You can use the 'screen' property as the renderer visible
+            // area, this is more useful than view.width/height because
+            // it handles resolution
+            // rect.position.set(pixiApplication.screen.width, pixiApplication.screen.height)
+        }
+    },
     mounted() {
-        initializeApplication(viewportSideDimension, this.$refs.viewport).then(app => {
-        this.app = app
-        const viewport = new Viewport({
-            screenWidth: app.screen.width,
-            screenHeight: app.screen.height,
-            worldWidth: viewportSideDimension,
-            worldHeight: viewportSideDimension
+        this.$refs.viewport.appendChild(application.view)
+        window.addEventListener('resize', debounce(this.handleResize, 20))
+        viewport = new Viewport({
+            screenWidth: application.screen.width,
+            screenHeight: application.screen.height,
+            worldWidth: worldSide,
+            worldHeight: worldSide
         })
-        viewport.drag().pinch()
+        viewport
+            .drag()
+            .pinch()
             .wheel()
             .decelerate()
 
-        app.stage.addChild(viewport)
+        application.stage.addChild(viewport)
 
-        const geometry = mandelbrot.geometry(0, viewportSideDimension)
-        const texture = PIXI.Texture.from(app.loader.resources.paletteHue.data)
-        this.shader = mandelbrot.shader(texture)
-        const square = new PIXI.Mesh(geometry, this.shader)
-        viewport.addChild(square)
-        })
+        shader = Mandelbrot.shader(PIXI.Texture.from(application.loader.resources.paletteHue.data))
+        viewport.addChild(
+            new PIXI.Mesh(
+                Mandelbrot.geometry(worldSide / -2, worldSide / 2),
+                shader
+            )
+        )
+
+        viewport.center = new PIXI.Point(0, 0)
+        viewport.fitWorld(true)
     }
 }
 </script>
 
-<style scoped>
-div {
+<style>
+canvas {
+    display:block;
+}
+
+div#viewport {
     width: 100%;
     height: 100%;
 }

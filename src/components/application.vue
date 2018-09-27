@@ -47,5 +47,11 @@ export default {
 </script>
 
 <style>
-
+html, body {
+    background-color: black;
+    color: white;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+}
 </style>
