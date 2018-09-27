@@ -1,5 +1,5 @@
 <template>
-  <div ref="viewport"></div>
+  <div ref="viewport"/>
 </template>
 
 <script>
@@ -34,24 +34,6 @@ export default {
       shader.uniforms.colorPalette = texture
     }
   },
-  methods: {
-    handleZoomed () {
-      this.$emit('zoomed', viewport.screenWorldHeight / viewport.worldHeight)
-    },
-    handleResize (event) {
-      const center = viewport.center
-      application.renderer.resize(window.innerWidth, window.innerHeight)
-      viewport.screenWidth = application.screen.width
-      viewport.screenHeight = application.screen.height
-      viewport.center = center
-      this.handleZoomed()
-      // viewport.fit(true, window.innerWidth, window.innerHeight)
-      // You can use the 'screen' property as the renderer visible
-      // area, this is more useful than view.width/height because
-      // it handles resolution
-      // rect.position.set(pixiApplication.screen.width, pixiApplication.screen.height)
-    }
-  },
   mounted () {
     this.$refs.viewport.appendChild(application.view)
     window.addEventListener('resize', debounce(this.handleResize, 20))
@@ -83,6 +65,24 @@ export default {
     viewport.fitWorld(true)
 
     this.handleZoomed()
+  },
+  methods: {
+    handleZoomed () {
+      this.$emit('zoomed', viewport.screenWorldHeight / viewport.worldHeight)
+    },
+    handleResize (event) {
+      const center = viewport.center
+      application.renderer.resize(window.innerWidth, window.innerHeight)
+      viewport.screenWidth = application.screen.width
+      viewport.screenHeight = application.screen.height
+      viewport.center = center
+      this.handleZoomed()
+      // viewport.fit(true, window.innerWidth, window.innerHeight)
+      // You can use the 'screen' property as the renderer visible
+      // area, this is more useful than view.width/height because
+      // it handles resolution
+      // rect.position.set(pixiApplication.screen.width, pixiApplication.screen.height)
+    }
   }
 }
 </script>

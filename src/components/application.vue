@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <viewport
-            :max-iterations="maxIteration"
-            :color-palette="colorPalette[0]"
-            @zoomed="handleZoomed"/>
-        <controls
-            :max-iteration="maxIteration"
-            @increaseIteration="handleIncreaseIteration"
-            @decreaseIteration="handleDecreaseIteration"
-            :color-palette="colorPalette"
-            @colorPalette="handleColorPalette"
-            :zoom="zoom" />
-    </div>
+  <div>
+    <viewport
+      :max-iterations="maxIteration"
+      :color-palette="colorPalette[0]"
+      @zoomed="handleZoomed"/>
+    <controls
+      :max-iteration="maxIteration"
+      :color-palette="colorPalette"
+      :zoom="zoom"
+      @increaseIteration="handleIncreaseIteration"
+      @decreaseIteration="handleDecreaseIteration"
+      @colorPalette="handleColorPalette" />
+  </div>
 </template>
 
 <script>
@@ -20,16 +20,16 @@ import ViewportVue from './viewport.vue'
 import Resources from '../resources'
 
 export default {
+  components: {
+    viewport: ViewportVue,
+    controls: ControlsVue
+  },
   data () {
     return {
       maxIteration: 64,
       colorPalette: Resources.defaultPalette(),
       zoom: 1
     }
-  },
-  components: {
-    viewport: ViewportVue,
-    controls: ControlsVue
   },
   methods: {
     handleIncreaseIteration (value) {
