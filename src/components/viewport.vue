@@ -11,8 +11,8 @@ import application from '../application'
 import Mandelbrot from '../mandelbrot'
 import Resources from '../resources'
 
-const worldSide = 500
-var shader, viewport
+const worldSide = 100
+var shader, viewport, initialZoom
 
 export default {
   props: {
@@ -63,12 +63,20 @@ export default {
 
     viewport.center = new PIXI.Point(0, 0)
     viewport.fitWorld(true)
+    const maxZoom = 50000
+    viewport.clampZoom({
+      minHeight: worldSide / maxZoom,
+      minWidth: worldSide / maxZoom,
+      maxHeight: worldSide,
+      maxWidth: worldSide,
+    })
 
+    initialZoom = viewport.screenWorldHeight / worldSide
     this.handleZoomed()
   },
   methods: {
     handleZoomed () {
-      this.$emit('zoomed', viewport.screenWorldHeight / viewport.worldHeight)
+      this.$emit('zoomed', viewport.screenWorldHeight / (worldSide * initialZoom))
     },
     handleResize (event) {
       const center = viewport.center
