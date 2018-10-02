@@ -53,7 +53,8 @@ export default {
 
     application.stage.addChild(viewport)
 
-    shader = Mandelbrot.shader(PIXI.Texture.from(application.loader.resources.paletteHue.data))
+    const paletteName = Resources.defaultPalette()[0]
+    shader = Mandelbrot.shader(PIXI.Texture.from(application.loader.resources[paletteName].data))
     viewport.addChild(
       new PIXI.Mesh(
         Mandelbrot.geometry(worldSide / -2, worldSide / 2),

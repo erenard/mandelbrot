@@ -25,7 +25,7 @@ const datas = {
       loader.add(entry[0], entry[1])
     })
   },
-  defaultPalette: () => ['paletteHue', paletteHue]
+  defaultPalette: () => ['paletteRedYellow', paletteRedYellow]
 }
 
 export default datas

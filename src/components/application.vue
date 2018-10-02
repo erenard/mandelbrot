@@ -47,7 +47,7 @@ export default {
     },
     handleZoomed (value) {
       this.zoom = value
-      this.maxIteration = Math.round(Math.pow(value,0.25) * 72 - 53)
+      this.maxIteration = Math.round(Math.pow(value, 0.25) * 72 - 53)
     }
   }
 }
