@@ -11,7 +11,7 @@
       :src="colorPalette[1]"
       class="colorPalette"
       style="border: solid 2px white;"
-      @click="openSelectionPalette" >
+      @click="openSelectionPalette">
     <div
       ref="selectionPalette"
       style="display: none;">
