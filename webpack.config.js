@@ -1,11 +1,13 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+const developmentPort = 9000
 
 module.exports = function (env, argv) {
-  return {
+  const config = {
     entry: { application: './src/application' },
     output: {
       filename: '[name].[hash].js',
@@ -22,8 +24,7 @@ module.exports = function (env, argv) {
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './src/index.html' }),
-      new VueLoaderPlugin(),
-      new CleanWebpackPlugin('dist', { exclude: ['.git', '.circleci', '.gitignore'] })
+      new VueLoaderPlugin()
     ],
     module: {
       rules: [
@@ -56,7 +57,7 @@ module.exports = function (env, argv) {
     devtool: 'source-map',
     devServer: {
       compress: false,
-      port: 9000
+      port: developmentPort
     },
     optimization: {
       minimize: argv.mode === 'production',
@@ -65,4 +66,10 @@ module.exports = function (env, argv) {
       })]
     }
   }
+  if (argv['bundle-analyzer']) {
+    config.plugins.push(new BundleAnalyzer({
+      analyzerPort: developmentPort
+    }))
+  }
+  return config
 }
