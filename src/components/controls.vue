@@ -1,9 +1,13 @@
 <template>
   <div id="controls">
     Iterations limit:
-    <button @click="decreaseIteration">-</button>
+    <button @click="decreaseIteration">
+      -
+    </button>
     <span style="font-weight: bold">{{ maxIteration }}</span>
-    <button @click="increaseIteration">+</button>
+    <button @click="increaseIteration">
+      +
+    </button>
     <br>
     Actual zoom: <strong>x<span>{{ zoom | precisionDigits }}</span></strong><br>
     <img
@@ -11,16 +15,19 @@
       :src="colorPalette[1]"
       class="colorPalette"
       style="border: solid 2px white;"
-      @click="openSelectionPalette">
+      @click="openSelectionPalette"
+    >
     <div
       ref="selectionPalette"
-      style="display: none;">
+      style="display: none;"
+    >
       <img
         v-for="palette in palettes"
         :key="palette[0]"
         :src="palette[1]"
         class="colorPalette"
-        @click="selectColorPalette(palette)" >
+        @click="selectColorPalette(palette)"
+      >
     </div>
   </div>
 </template>

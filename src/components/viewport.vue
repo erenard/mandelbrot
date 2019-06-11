@@ -1,5 +1,5 @@
 <template>
-  <div ref="viewport"/>
+  <div ref="viewport" />
 </template>
 
 <script>
@@ -69,7 +69,7 @@ export default {
       minHeight: worldSide / maxZoom,
       minWidth: worldSide / maxZoom,
       maxHeight: worldSide,
-      maxWidth: worldSide,
+      maxWidth: worldSide
     })
 
     initialZoom = viewport.screenWorldHeight / worldSide

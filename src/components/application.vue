@@ -3,14 +3,16 @@
     <viewport
       :max-iterations="maxIteration"
       :color-palette="colorPalette[0]"
-      @zoomed="handleZoomed"/>
+      @zoomed="handleZoomed"
+    />
     <controls
       :max-iteration="maxIteration"
       :color-palette="colorPalette"
       :zoom="zoom"
       @increaseIteration="handleIncreaseIteration"
       @decreaseIteration="handleDecreaseIteration"
-      @colorPalette="handleColorPalette" />
+      @colorPalette="handleColorPalette"
+    />
   </div>
 </template>
 
