@@ -19,7 +19,7 @@ application.loader.load(() => {
   new Vue({
     el: '#app',
     components: {
-      'application': ApplicationComponent
+      application: ApplicationComponent
     }
   })
 })
